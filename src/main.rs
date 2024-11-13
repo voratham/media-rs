@@ -118,4 +118,10 @@ fn main() {
         MightHaveAValue::ThereIsAValue(value) => println!("Item: {:#?}", value),
         MightHaveAValue::NoValueAvailable => println!("No value here "),
     }
+
+    if let MightHaveAValue::ThereIsAValue(value) = catalog.get_by_index(0) {
+        println!("Item in pattern match : {:#?}", value)
+    } else {
+        println!("No value here !!!!!!!")
+    }
 }
