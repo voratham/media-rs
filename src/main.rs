@@ -1,11 +1,12 @@
-use std::default;
+use std::{default, fmt::format};
 
 #[derive(Debug)]
 enum Media {
     Book { title: String, author: String },
     Movie { title: String, director: String },
     Audiobook { title: String },
-    Audiobook2 { title: String },
+    Podcast(u32),
+    Placeholder,
 }
 
 impl Media {
@@ -30,7 +31,12 @@ impl Media {
             Media::Audiobook { title } => {
                 format!("audio book: {}", title)
             }
-            _ => String::from("Media description"),
+            Media::Podcast(id) => {
+                format!("podcast: {}", id)
+            }
+            Media::Placeholder => {
+                format!("Placeholder")
+            }
         }
     }
 }
@@ -69,9 +75,9 @@ fn main() {
         author: String::from("Bad Author"),
     };
 
-    let auidobook2 = Media::Audiobook2 {
-        title: String::from("An Audiobook 2"),
-    };
+    let podcast = Media::Podcast(99);
+
+    let placehodler = Media::Placeholder;
 
     // println!("{}", auidobook.description());
     // println!("{}", good_movie.description());
@@ -79,9 +85,10 @@ fn main() {
 
     let mut catelog = Catelog::new();
     catelog.add(auidobook);
-    catelog.add(auidobook2);
     catelog.add(good_movie);
     catelog.add(bad_book);
+    catelog.add(podcast);
+    catelog.add(placehodler);
 
     println!("{:#?}", catelog)
 }
