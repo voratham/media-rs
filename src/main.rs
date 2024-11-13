@@ -1,5 +1,3 @@
-use std::{default, fmt::format};
-
 #[derive(Debug)]
 enum Media {
     Book { title: String, author: String },
@@ -42,18 +40,33 @@ impl Media {
 }
 
 #[derive(Debug)]
-struct Catelog {
+struct Catalog {
     items: Vec<Media>,
 }
 
-impl Catelog {
+impl Catalog {
     fn new() -> Self {
-        Catelog { items: vec![] }
+        Catalog { items: vec![] }
     }
 
     fn add(&mut self, media: Media) {
         self.items.push(media);
     }
+
+    fn get_by_index(&self, index: usize) -> MightHaveAValue {
+        if self.items.len() > index {
+            MightHaveAValue::ThereIsAValue(&self.items[index])
+        } else {
+            MightHaveAValue::NoValueAvailable
+        }
+    }
+}
+
+// TODO: craft owner Options
+#[derive(Debug)]
+enum MightHaveAValue<'a> {
+    ThereIsAValue(&'a Media),
+    NoValueAvailable,
 }
 
 fn print_media(media: Media) {
@@ -61,7 +74,7 @@ fn print_media(media: Media) {
 }
 
 fn main() {
-    let auidobook = Media::Audiobook {
+    let audiobook = Media::Audiobook {
         title: String::from("An Audiobook"),
     };
 
@@ -77,18 +90,32 @@ fn main() {
 
     let podcast = Media::Podcast(99);
 
-    let placehodler = Media::Placeholder;
+    let placeholder = Media::Placeholder;
 
     // println!("{}", auidobook.description());
     // println!("{}", good_movie.description());
     // println!("{}", bad_book.description());
 
-    let mut catelog = Catelog::new();
-    catelog.add(auidobook);
-    catelog.add(good_movie);
-    catelog.add(bad_book);
-    catelog.add(podcast);
-    catelog.add(placehodler);
+    let mut catalog = Catalog::new();
+    catalog.add(audiobook);
+    catalog.add(good_movie);
+    catalog.add(bad_book);
+    catalog.add(podcast);
+    catalog.add(placeholder);
 
-    println!("{:#?}", catelog)
+    // println!("{:#?}", catalog.items.get(100))
+    // match catalog.items.get(0) {
+    //     Option::Some(value) => {
+    //         println!("Item: {:#?}", value)
+    //     }
+    //     None => println!("Nothing at that index !"),
+    // }
+
+    // let item = catalog.get_by_index(40);
+    // print!("{:#?}", item)
+
+    match catalog.get_by_index(40) {
+        MightHaveAValue::ThereIsAValue(value) => println!("Item: {:#?}", value),
+        MightHaveAValue::NoValueAvailable => println!("No value here "),
+    }
 }
