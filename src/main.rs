@@ -35,6 +35,21 @@ impl Media {
     }
 }
 
+#[derive(Debug)]
+struct Catelog {
+    items: Vec<Media>,
+}
+
+impl Catelog {
+    fn new() -> Self {
+        Catelog { items: vec![] }
+    }
+
+    fn add(&mut self, media: Media) {
+        self.items.push(media);
+    }
+}
+
 fn print_media(media: Media) {
     println!("{:#?}", media)
 }
@@ -54,17 +69,19 @@ fn main() {
         author: String::from("Bad Author"),
     };
 
-    println!("{}", auidobook.description());
-    println!("{}", good_movie.description());
-    println!("{}", bad_book.description());
-
     let auidobook2 = Media::Audiobook2 {
-        title: String::from("An Audiobook"),
+        title: String::from("An Audiobook 2"),
     };
-    println!("{}", auidobook2.description());
 
+    // println!("{}", auidobook.description());
+    // println!("{}", good_movie.description());
+    // println!("{}", bad_book.description());
 
-    // print_media(auidobook);
-    // print_media(good_movie);
-    // print_media(bad_book);
+    let mut catelog = Catelog::new();
+    catelog.add(auidobook);
+    catelog.add(auidobook2);
+    catelog.add(good_movie);
+    catelog.add(bad_book);
+
+    println!("{:#?}", catelog)
 }
