@@ -1,3 +1,18 @@
+## How to read
+- i step by step learning each commit !
+```sh
+e44d2e7 chore: refactoring with multiple modules
+d3374f1 chore: put to exercise
+2ef78e0 chore: replcate our custom enum with option enum standard
+7783b44 chore: athernative pattern match in case if-else
+4eb7605 chore: craft enum owner'options
+ae281f5 chore: example unlabeled fields
+d477071 chore: new catelog struct
+7ad2652 chore: pattern matching with enum
+f4f74cc init: first enum media
+```
+
+
 ## How to run
 
 ```sh
